@@ -2,21 +2,22 @@
 
 Problem Statement: Create a simple RESTful service, to create/update/view contacts.
  
-Technical Details- 
-· Solution in Java.
+Technical Details:
 
-· Java Rest - Jersey
+- Solution in Java.
 
-· Request & Response in JSON
+- Java Rest - Jersey
 
-· Store the data in memory
+- Request & Response in JSON
+
+- Store the data in memory
   Used a simple thread-safe Java in-memory cache. 
   Items will expire based on a time to live period.
   Cache will keep most recently used items if you will try to add more items then max specified. 
 
-· Build tool-  Maven
+- Build tool-  Maven
 
-· Used generic REST client FireFox Rest Client
+- Used generic REST client FireFox Rest Client
 
 Endpoints:
 
