@@ -34,8 +34,12 @@ public class ContactService{
 	@Produces("application/json")
 	public Response getContactByID(@PathParam("id") int f) throws JSONException {
 		System.out.println("Data GET args: " +Integer.toString(f));
-		ContactInMemoryCache<String, String> cache = new ContactInMemoryCache<String, String>(200, 500, 1000);  	
-		System.out.println("Data GET: " + cache.get(Integer.toString(f)));
+		ContactInMemoryCache<String, String> cache = new ContactInMemoryCache<String, String>(200, 500, 1000);
+		System.out.println("Data GET from cache: " + cache.get(Integer.toString(f)));
+		if(cache.get(Integer.toString(f)) == null){
+			String result = "Requested contact id: "+Integer.toString(f)+" does not exist.";
+			return Response.status(400).entity(result).build();
+		}
 		String result = "" + cache.get(Integer.toString(f));
 		return Response.status(200).entity(result).build();
 	}
@@ -44,12 +48,16 @@ public class ContactService{
 	@Path("/contacts")
 	@Produces("application/json")
 	public Response getAllContacts() {
-		ContactInMemoryCache<String, String> cache = new ContactInMemoryCache<String, String>(200, 500, 1000);  	
-
-		System.out.println("Data GET All count: " + cache.size());
+		ContactInMemoryCache<String, String> cache = new ContactInMemoryCache<String, String>(200, 500, 1000);
+		Integer contactsInMemory = cache.size();
+     	System.out.println("Data GET All count from cache: " + contactsInMemory);
+		if(contactsInMemory == 0){
+			String result = "No Contacts found in Memory.";
+			return Response.status(400).entity(result).build();
+		}
 		// To Do - Need to implement logic to get all the items from cache
 		// To Do- Build json response with all items from cache
-		String result = "";
+		String result = "Contacts list need to stored.";
 		return Response.status(200).entity(result).build();
 	}
 
